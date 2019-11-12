@@ -2,9 +2,9 @@ package com.andlvovsky.lines.board;
 
 import com.andlvovsky.lines.meta.Color;
 
-public class Board {
-    private final static int SIZE = 9;
+import static com.andlvovsky.lines.meta.GameConstants.SIZE;
 
+public class Board implements Cloneable {
     private Cell[][] cells;
 
     public Board() {
@@ -32,5 +32,15 @@ public class Board {
         Cell cell = cells[i][j];
         cell.setEmpty(false);
         cell.setBallColor(color);
+    }
+
+    @Override
+    public Object clone() {
+        Board board = new Board();
+        for (int i  = 0; i < SIZE; i++)
+            for (int j = 0; j < SIZE; j++)
+                if (!isEmpty(i, j))
+                    board.addBall(i, j, getColor(i, j));
+        return board;
     }
 }
