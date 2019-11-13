@@ -45,8 +45,8 @@
         android:layout_width="match_parent"
         android:layout_height="30sp" />
 
-    <com.andlvovsky.lines.view.BoardView
-        android:id="@+id/boardView"
+    <TableLayout
+        android:id="@+id/boardTableLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

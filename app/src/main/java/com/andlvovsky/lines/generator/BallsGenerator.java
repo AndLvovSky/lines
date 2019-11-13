@@ -39,16 +39,19 @@ public class BallsGenerator {
     }
 
     private static Color randomColor() {
+        return Color.values()[randUnsignedInt(Color.values().length)];
+    }
+
+    private static int randUnsignedInt(int max) {
         Random random = new Random();
-        int randIndex = random.nextInt() % Color.values().length;
-        return Color.values()[randIndex];
+        return (random.nextInt() % max + max) % max;
     }
 
     private static Coordinates findEmptyCell(Board board) {
         int emptyCellsCount = BoardAnalyzer.countEmptyCells(board);
         if (emptyCellsCount == 0)
             throw new GameOverException();
-        int randPos = new Random().nextInt() % emptyCellsCount;
+        int randPos = randUnsignedInt(emptyCellsCount);
         for (int i = 0, c = 0; i < SIZE; i++)
             for (int j = 0; j < SIZE; j++)
                 if (board.isEmpty(i, j)) {
