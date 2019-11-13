@@ -55,7 +55,7 @@ public class BoardGraphAlgorithms {
     }
 
     private static boolean isValidCell(Board board, Coordinates coord) {
-        return coord.i > 0 && coord.i < SIZE && coord.j > 0 && coord.j < SIZE &&
+        return BoardAnalyzer.isInBoard(coord) &&
                 board.isEmpty(coord.i, coord.j);
     }
 }

@@ -35,8 +35,9 @@ public enum LinesGame {
     public void makeMove(Move move) {
         if (!BoardAnalyzer.isValidMove(board, move))
             throw new InvalidMoveException();
-        int scoreToAdd = BoardAnalyzer.removeBallsAndCalculateAddingScore();
-        score += scoreToAdd;
+        score += BoardAnalyzer.removeBallsAndCalculateAddingScore(board);
         BallsGenerator.placeNextBalls(board, nextColors);
+        score += BoardAnalyzer.removeBallsAndCalculateAddingScore(board);
+        nextColors = BallsGenerator.generateNextColors();
     }
 }
