@@ -10,7 +10,9 @@ public class BoardAnalyzer {
     }
 
     public static boolean isValidMove(Board board, Move move) {
-        throw new UnsupportedOperationException();
+        return board.isEmpty(move.iFrom(), move.jFrom()) &&
+                board.isEmpty(move.iTo(), move.jTo()) &&
+                BoardGraphAlgorithms.doesPathExist(board, move);
     }
 
     public static int removeBallsAndCalculateAddingScore() {
