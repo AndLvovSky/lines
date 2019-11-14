@@ -4,14 +4,13 @@ import com.andlvovsky.lines.analyzer.BoardAnalyzer;
 import com.andlvovsky.lines.board.Board;
 import com.andlvovsky.lines.exception.InvalidMoveException;
 import com.andlvovsky.lines.generator.BallsGenerator;
-import com.andlvovsky.lines.meta.Color;
 
 public enum LinesGame {
     INSTANCE;
 
     private Board board;
     private int score;
-    private Color[] nextColors;
+    private int[] nextColors;
 
     public void start() {
         board = new Board();
@@ -20,7 +19,7 @@ public enum LinesGame {
         BallsGenerator.placeFirstBalls(board);
     }
 
-    public Color getNextColor(int pos) {
+    public int getNextColor(int pos) {
         return nextColors[pos];
     }
 

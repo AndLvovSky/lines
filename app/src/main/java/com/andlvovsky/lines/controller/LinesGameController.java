@@ -26,4 +26,9 @@ public enum LinesGameController {
             chosenCells.clear();
         }
     }
+
+    @SuppressWarnings("unchecked")
+    public List<Coordinates> getChosenCells() {
+        return (List<Coordinates>)((ArrayList<?>) chosenCells).clone();
+    }
 }

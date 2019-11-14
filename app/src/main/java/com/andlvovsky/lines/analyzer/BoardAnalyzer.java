@@ -2,7 +2,6 @@ package com.andlvovsky.lines.analyzer;
 
 import com.andlvovsky.lines.board.Board;
 import com.andlvovsky.lines.game.Move;
-import com.andlvovsky.lines.meta.Color;
 import com.andlvovsky.lines.meta.Score;
 import com.andlvovsky.lines.util.Coordinates;
 
@@ -68,7 +67,7 @@ public class BoardAnalyzer {
         for (int i = 0; i < SIZE; i++)
             for (int j = 0; j < SIZE; j++)
                 if (!board.isEmpty(i, j)) {
-                    Color color = board.getColor(i, j);
+                    int color = board.getColor(i, j);
                     List<Coordinates> coords = new ArrayList<>();
                     int k = i, l = j;
                     do {

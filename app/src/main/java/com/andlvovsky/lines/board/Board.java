@@ -1,7 +1,5 @@
 package com.andlvovsky.lines.board;
 
-import com.andlvovsky.lines.meta.Color;
-
 import static com.andlvovsky.lines.meta.GameConstants.SIZE;
 
 public class Board implements Cloneable {
@@ -21,14 +19,13 @@ public class Board implements Cloneable {
     public void clearCell(int i, int j) {
         Cell cell = cells[i][j];
         cell.setEmpty(true);
-        cell.setBallColor(Color.NONE);
     }
 
-    public Color getColor(int i, int j) {
+    public int getColor(int i, int j) {
         return cells[i][j].getBallColor();
     }
 
-    public void addBall(int i, int j, Color color) {
+    public void addBall(int i, int j, int color) {
         Cell cell = cells[i][j];
         cell.setEmpty(false);
         cell.setBallColor(color);

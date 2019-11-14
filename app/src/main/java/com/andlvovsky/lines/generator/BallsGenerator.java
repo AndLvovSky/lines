@@ -3,7 +3,7 @@ package com.andlvovsky.lines.generator;
 import com.andlvovsky.lines.analyzer.BoardAnalyzer;
 import com.andlvovsky.lines.board.Board;
 import com.andlvovsky.lines.exception.GameOverException;
-import com.andlvovsky.lines.meta.Color;
+import com.andlvovsky.lines.meta.Colors;
 import com.andlvovsky.lines.meta.GameConstants;
 import com.andlvovsky.lines.util.Coordinates;
 
@@ -16,8 +16,8 @@ public class BallsGenerator {
     private BallsGenerator() {
     }
 
-    public static Color[] generateNextColors() {
-        Color[] nextColors = new Color[GameConstants.COLORS_PREDICTED];
+    public static int[] generateNextColors() {
+        int[] nextColors = new int[GameConstants.COLORS_PREDICTED];
         for (int i = 0; i < GameConstants.COLORS_PREDICTED; i++) {
             nextColors[i] = randomColor();
         }
@@ -31,15 +31,15 @@ public class BallsGenerator {
         }
     }
 
-    public static void placeNextBalls(Board board, Color[] colors) {
-        for (Color color: colors) {
+    public static void placeNextBalls(Board board, int[] colors) {
+        for (int color : colors) {
             Coordinates coord = findEmptyCell(board);
             board.addBall(coord.i, coord.j, color);
         }
     }
 
-    private static Color randomColor() {
-        return Color.values()[randUnsignedInt(Color.values().length)];
+    private static int randomColor() {
+        return Colors.BALLS.get(randUnsignedInt(Colors.BALLS.size()));
     }
 
     private static int randUnsignedInt(int max) {

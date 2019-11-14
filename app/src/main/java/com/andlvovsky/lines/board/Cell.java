@@ -1,15 +1,12 @@
 package com.andlvovsky.lines.board;
 
-import com.andlvovsky.lines.meta.Color;
-
 
 public class Cell {
     private boolean empty;
-    private Color ballColor;
+    private int ballColor;
 
     public Cell() {
         empty = true;
-        ballColor = Color.NONE;
     }
 
     public boolean isEmpty() {
@@ -20,11 +17,11 @@ public class Cell {
         this.empty = empty;
     }
 
-    public Color getBallColor() {
+    public int getBallColor() {
         return ballColor;
     }
 
-    public void setBallColor(Color ballColor) {
+    public void setBallColor(int ballColor) {
         this.ballColor = ballColor;
     }
 }
