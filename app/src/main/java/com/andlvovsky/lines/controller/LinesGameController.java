@@ -1,5 +1,6 @@
 package com.andlvovsky.lines.controller;
 
+import com.andlvovsky.lines.exception.InvalidMoveException;
 import com.andlvovsky.lines.game.LinesGame;
 import com.andlvovsky.lines.game.Move;
 import com.andlvovsky.lines.util.Coordinates;
@@ -21,9 +22,14 @@ public enum LinesGameController {
     public void chooseCell(int i, int j) {
         chosenCells.add(new Coordinates(i, j));
         if (chosenCells.size() == 2) {
-            game.makeMove(new Move(chosenCells.get(0).i, chosenCells.get(0).j,
-                    chosenCells.get(1).i, chosenCells.get(1).j));
-            chosenCells.clear();
+            try {
+                game.makeMove(new Move(chosenCells.get(0).i, chosenCells.get(0).j,
+                        chosenCells.get(1).i, chosenCells.get(1).j));
+            } catch (InvalidMoveException e) {
+                // ignore
+            } finally {
+                chosenCells.clear();
+            }
         }
     }
 

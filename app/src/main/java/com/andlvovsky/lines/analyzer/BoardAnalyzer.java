@@ -24,7 +24,7 @@ public class BoardAnalyzer {
 
     public static boolean isValidMove(Board board, Move move) {
         return !(move.iFrom() == move.iTo() && move.jFrom() == move.jTo()) &&
-                board.isEmpty(move.iFrom(), move.jFrom()) &&
+                !board.isEmpty(move.iFrom(), move.jFrom()) &&
                 board.isEmpty(move.iTo(), move.jTo()) &&
                 BoardGraphAlgorithms.doesPathExist(board, move);
     }
@@ -60,7 +60,7 @@ public class BoardAnalyzer {
     }
 
     public static boolean isInBoard(Coordinates coord) {
-        return coord.i > 0 && coord.i < SIZE && coord.j > 0 && coord.j < SIZE;
+        return coord.i >= 0 && coord.i < SIZE && coord.j >= 0 && coord.j < SIZE;
     }
 
     private static List<Coordinates> findLongest(Board board, Coordinates transition) {

@@ -5,11 +5,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.andlvovsky.lines.R;
 import com.andlvovsky.lines.controller.LinesGameController;
+import com.andlvovsky.lines.exception.GameOverException;
+import com.andlvovsky.lines.exception.InvalidMoveException;
+import com.andlvovsky.lines.game.LinesGame;
 import com.andlvovsky.lines.meta.GameConstants;
 import com.andlvovsky.lines.view.CellView;
 
@@ -17,11 +21,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    LinesGameController controller = LinesGameController.INSTANCE;
+    private LinesGameController controller = LinesGameController.INSTANCE;
+    private LinesGame game = LinesGame.INSTANCE;
 
-    Button restartButton;
-    TableLayout boardLayout;
-    List<CellView> cells = new ArrayList<>();
+    private Button restartButton;
+    private TextView scoreTextView;
+    private TextView hintTextView;
+    private TableLayout boardLayout;
+    private List<CellView> cells = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,18 +39,23 @@ public class MainActivity extends AppCompatActivity {
 
     public void restart() {
         controller.startGame();
+        hintTextView.setText("");
+        repaintGame();
     }
 
     private void init() {
         setViews();
         createCells();
         setListeners();
+        hintTextView.setText("");
         controller.startGame();
     }
 
     private void setViews() {
         restartButton = findViewById(R.id.restartButton);
+        scoreTextView = findViewById(R.id.scoreTextView);
         boardLayout = findViewById(R.id.boardTableLayout);
+        hintTextView = findViewById(R.id.hintTextView);
     }
 
     private void createCells() {
@@ -87,8 +99,22 @@ public class MainActivity extends AppCompatActivity {
             cell.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    controller.chooseCell(cell.iCoord(), cell.jCoord());
+                    try {
+                        controller.chooseCell(cell.iCoord(), cell.jCoord());
+                    } catch (InvalidMoveException e) {
+                        // ignore
+                    } catch (GameOverException e) {
+                        hintTextView.setText("Game Over!");
+                    } finally {
+                        repaintGame();
+                    }
                 }
             });
+    }
+
+    private void repaintGame() {
+        for(CellView cell: cells)
+            cell.invalidate();
+        scoreTextView.setText("Score: " + game.getScore());
     }
 }

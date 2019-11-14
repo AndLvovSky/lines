@@ -1,5 +1,7 @@
 package com.andlvovsky.lines.board;
 
+import com.andlvovsky.lines.game.Move;
+
 import static com.andlvovsky.lines.meta.GameConstants.SIZE;
 
 public class Board implements Cloneable {
@@ -29,6 +31,11 @@ public class Board implements Cloneable {
         Cell cell = cells[i][j];
         cell.setEmpty(false);
         cell.setBallColor(color);
+    }
+
+    public void moveBall(Move move) {
+        addBall(move.iTo(), move.jTo(), getColor(move.iFrom(), move.jFrom()));
+        clearCell(move.iFrom(), move.jFrom());
     }
 
     @Override

@@ -38,7 +38,8 @@ public class BoardGraphAlgorithms {
                     return true;
                 nextVisited.addAll(findPossibleNextCells(board, coord, used));
             }
-            lastVisited = nextVisited;
+            lastVisited.clear();
+            lastVisited.addAll(nextVisited);
             nextVisited.clear();
         }
         return false;
@@ -48,14 +49,17 @@ public class BoardGraphAlgorithms {
         List<Coordinates> nextCoords = new ArrayList<>();
         for (Coordinates step: validSteps) {
             Coordinates next = new Coordinates(coord.i + step.i, coord.j + step.j);
-            if (isValidCell(board, next))
+            if (isValidCell(board, next, used)) {
                 nextCoords.add(next);
+                used[next.i][next.j] = true;
+            }
         }
         return nextCoords;
     }
 
-    private static boolean isValidCell(Board board, Coordinates coord) {
+    private static boolean isValidCell(Board board, Coordinates coord, boolean[][] used) {
         return BoardAnalyzer.isInBoard(coord) &&
-                board.isEmpty(coord.i, coord.j);
+                board.isEmpty(coord.i, coord.j) &&
+                !used[coord.i][coord.j];
     }
 }
