@@ -17,6 +17,7 @@ public enum LinesGameController {
 
     public void startGame() {
         game.start();
+        chosenCells.clear();
     }
 
     public void chooseCell(int i, int j) {

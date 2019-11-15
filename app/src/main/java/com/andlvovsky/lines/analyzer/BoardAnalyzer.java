@@ -23,7 +23,9 @@ public class BoardAnalyzer {
     }
 
     public static boolean isValidMove(Board board, Move move) {
-        return !(move.iFrom() == move.iTo() && move.jFrom() == move.jTo()) &&
+        return isInBoard(new Coordinates(move.iFrom(), move.jFrom())) &&
+                isInBoard(new Coordinates(move.iTo(), move.jTo())) &&
+                !(move.iFrom() == move.iTo() && move.jFrom() == move.jTo()) &&
                 !board.isEmpty(move.iFrom(), move.jFrom()) &&
                 board.isEmpty(move.iTo(), move.jTo()) &&
                 BoardGraphAlgorithms.doesPathExist(board, move);
